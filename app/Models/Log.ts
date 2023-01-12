@@ -1,7 +1,7 @@
 import { DateTime } from "luxon";
-import { column, BaseModel, beforeCreate } from "@ioc:Adonis/Lucid/Orm";
+import { BaseModel, column } from "@ioc:Adonis/Lucid/Orm";
 
-export default class MyCustomBaseModel extends BaseModel {
+export default class Log extends BaseModel {
   @column({ isPrimary: true })
   public id: number;
 
@@ -11,8 +11,9 @@ export default class MyCustomBaseModel extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime;
 
-  @beforeCreate()
-  public static async createLog(model: MyCustomBaseModel) {
-    console.log("Saving", model);
-  }
+  @column()
+  public props: string[];
+
+  @column()
+  public action: number;
 }

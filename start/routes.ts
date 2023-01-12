@@ -19,7 +19,13 @@
 */
 
 import Route from "@ioc:Adonis/Core/Route";
+import Log from "App/Models/Log";
 import Test from "App/Models/Test";
 
 Route.get("/", () => Test.all());
 Route.get("/create", () => Test.create({ name: "Madeline" }));
+Route.get("/update", () =>
+  Test.first().then((test) => test?.merge({ name: "Madeline 2" }).save())
+);
+Route.get("/reset", () => Test.truncate().then(() => Log.truncate()));
+Route.get("/logs", () => Log.all());
